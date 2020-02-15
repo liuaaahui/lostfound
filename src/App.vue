@@ -12,5 +12,6 @@ export default {
 
 <style>
 #app {
+  height: 1800px;
 }
 </style>

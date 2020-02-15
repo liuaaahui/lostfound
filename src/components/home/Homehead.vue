@@ -21,15 +21,18 @@
       </div>
     </div>
     <v-content></v-content>
+    <v-bottom></v-bottom>
   </div>
 </template>
 
 <script>
 import content from '../home/Homecontent'
+import bottom from '../home/Homebottom'
 export default {
   name: 'Homehead',
   components: {
-    'v-content': content
+    'v-content': content,
+    'v-bottom': bottom
   },
   data () {
     return {

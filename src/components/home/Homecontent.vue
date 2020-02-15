@@ -80,7 +80,7 @@ export default {
 }
 img{
     position: absolute;
-    top: 37px;
+    top: 40px;
 }
 span{
     padding-left: 30px;
