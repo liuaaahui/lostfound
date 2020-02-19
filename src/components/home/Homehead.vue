@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="homeHeight">
     <div class="head">
+      <el-button round class="elbutton" @click="login">登录</el-button>
       <h1>失物招领</h1>
       <h2>lost and found</h2>
       <h2>———————&nbsp;&nbsp;<span class="innerWord"> 共同见证 失而复得的意义 </span>&nbsp;&nbsp;———————</h2>
@@ -12,7 +13,7 @@
             <el-menu-item index="3" @click="home">寻物启事</el-menu-item>
             <el-menu-item index="4" @click="home">寻宠启事</el-menu-item>
             <el-menu-item index="5" @click="home">寻人启事</el-menu-item>
-            <el-menu-item index="6" @click="home">政策法规</el-menu-item>
+            <el-menu-item index="6" @click="home">抗击疫情</el-menu-item>
             <el-menu-item index="7" @click="home">市民声音</el-menu-item>
             <el-menu-item index="8" @click="home">关于我们</el-menu-item>
           </el-menu>
@@ -46,17 +47,29 @@ export default {
     },
     home () {
       this.$router.replace('/')
+    },
+    login () {
+      this.$router.replace('/login')
     }
   }
 }
 </script>
 
 <style scoped>
+.homeHeight{
+  height: 1800px;
+}
 .head{
   height: 200px;
   width: 100%;
   background-color: #CA2E3B;
   box-shadow: 0 2px 1px rgba(0,0,0,.2);
+}
+.elbutton{
+    float: right;
+    position: relative;
+    top: 25px;
+    right: 50px;
 }
 h1{
   color: #F4E5E6;

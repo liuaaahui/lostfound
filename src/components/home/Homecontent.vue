@@ -1,9 +1,9 @@
 <template>
     <div class="content">
         <div class="btn">
-            <div class="pubbtn"><img src="../../assets/search2.svg" alt="search" /><span>发布寻物</span></div>
+            <div class="pubbtn" @click="search"><img src="../../assets/search2.svg" alt="search" /><span>发布寻物</span></div>
             <div class="pubbtn"><img src="../../assets/money.svg" alt="money" /><span>发布招领</span></div>
-            <div class="pubbtn"><img src="../../assets/pet.svg" alt="pet" /><span>发布寻宠</span></div>
+            <div class="pubbtn"><img src="../../assets/pet.svg" alt="pet" /><span>&nbsp;发布寻宠</span></div>
             <div class="pubbtn"><img src="../../assets/person.svg" alt="person" /><span>发布寻人</span></div>
         </div>
         <div class="carousel">
@@ -50,6 +50,11 @@ export default {
       imgbox: [{id: 0, idView: require('../../assets/lost1.jpg')},
         {id: 1, idView: require('../../assets/lost2.jpg')},
         {id: 2, idView: require('../../assets/lost3.jpg')}]
+    }
+  },
+  methods: {
+    search () {
+      this.$router.replace('/search')
     }
   }
 }

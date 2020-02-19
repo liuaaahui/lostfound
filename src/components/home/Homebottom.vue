@@ -21,10 +21,6 @@ export default {
 </script>
 
 <style scoped>
-.bottom{
-    height: 120px;
-    position: relative;
-}
 .foot{
     width: 100%;
     height: 80px;
