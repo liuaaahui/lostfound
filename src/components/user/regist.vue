@@ -6,18 +6,21 @@
       <div class="loginForm">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
           <el-form-item prop="phonenumber">
-            <el-input placeholder="请输入手机号" prefix-icon="el-icon-phone" v-model="ruleForm.phonenumber"></el-input>
+            <el-input placeholder="手机号,用于登录" prefix-icon="el-icon-phone" v-model="ruleForm.phonenumber"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input placeholder="请输入密码" prefix-icon="el-icon-lock" v-model="ruleForm.password"></el-input>
+            <el-input placeholder="密码" prefix-icon="el-icon-lock" v-model="ruleForm.password"></el-input>
+          </el-form-item>
+          <el-form-item prop="ensurepwd">
+            <el-input placeholder="确认密码" prefix-icon="el-icon-lock" v-model="ruleForm.ensurepwd"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">确认注册</el-button>
           </el-form-item>
         </el-form>
       </div>
       <span class="backTohome" @click="home">返回首页</span>
-      <span class="regist" @click="regist">注册</span>
+      <span class="regist" @click="login">已有账号直接登陆</span>
     </div>
   </div>
 </template>
@@ -25,10 +28,18 @@
 <script>
 export default {
   data () {
+    var checkPwd = (rule, value, callback) => {
+      if (value !== this.ruleForm.password) {
+        callback(new Error('密码不一致'))
+      } else {
+        callback()
+      }
+    }
     return {
       ruleForm: {
         phonenumber: '',
-        password: ''
+        password: '',
+        ensurepwd: ''
       },
       rules: {
         phonenumber: [
@@ -36,6 +47,9 @@ export default {
         ],
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' }
+        ],
+        ensurepwd: [
+          { validator: checkPwd, trigger: 'blur' }
         ]
       }
     }
@@ -54,8 +68,8 @@ export default {
     home () {
       this.$router.replace('/')
     },
-    regist () {
-      this.$router.push('/regist')
+    login () {
+      this.$router.push('/login')
     }
   }
 }

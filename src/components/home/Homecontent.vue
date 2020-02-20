@@ -2,9 +2,9 @@
     <div class="content">
         <div class="btn">
             <div class="pubbtn" @click="search"><img src="../../assets/search2.svg" alt="search" /><span>发布寻物</span></div>
-            <div class="pubbtn"><img src="../../assets/money.svg" alt="money" /><span>发布招领</span></div>
-            <div class="pubbtn"><img src="../../assets/pet.svg" alt="pet" /><span>&nbsp;发布寻宠</span></div>
-            <div class="pubbtn"><img src="../../assets/person.svg" alt="person" /><span>发布寻人</span></div>
+            <div class="pubbtn" @click="money"><img src="../../assets/money.svg" alt="money" /><span>发布招领</span></div>
+            <div class="pubbtn" @click="pet"><img src="../../assets/pet.svg" alt="pet" /><span>&nbsp;发布寻宠</span></div>
+            <div class="pubbtn" @click="person"><img src="../../assets/person.svg" alt="person" /><span>发布寻人</span></div>
         </div>
         <div class="carousel">
             <el-carousel :interval="4000" type="card" height="300px">
@@ -55,6 +55,15 @@ export default {
   methods: {
     search () {
       this.$router.replace('/search')
+    },
+    money () {
+      this.$router.replace('/money')
+    },
+    pet () {
+      this.$router.replace('/pet')
+    },
+    person () {
+      this.$router.replace('/person')
     }
   }
 }
