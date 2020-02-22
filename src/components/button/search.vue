@@ -43,7 +43,20 @@
         </el-form-item>
         <el-form-item label="上传图片" prop="uploadImg">
           <!-- v-model="ruleForm.uploadImg" -->
-          <button>选择文件</button>
+          <!-- <button>选择文件</button> -->
+          <el-upload class="upload-demo"
+                     ref="upload"
+                     action="https://jsonplaceholder.typicode.com/posts/"
+                     :on-change="onChange"
+                     :on-exceed="handleExceed"
+                     :file-list="fileList"
+                     :before-upload="beforeUpload"
+                     list-type="picture"
+                     :limit='1'
+                     :auto-upload="false">
+            <el-button size="small" type="primary">选择文件</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传一个jpg/png文件，且不超过500kb</div>
+          </el-upload>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">确认发布</el-button>
@@ -73,6 +86,8 @@ export default {
         remark: ''
       },
       options: options,
+      fileList: [],
+      downLoadLoading: '',
       rules: {
         site: [
           { required: true, message: '请输入地点', trigger: 'blur' }
@@ -103,15 +118,16 @@ export default {
         ],
         remark: [
           { required: true, message: '请具体描述', trigger: 'blur' }
-        ],
-        uploadImg: [
-          { required: true, message: '请选择一张照片以供参考', trigger: 'blur' }
         ]
+        // uploadImg: [
+        //   { required: true, message: '请选择一张照片以供参考', trigger: 'blur' }
+        // ]
       }
     }
   },
   methods: {
     submitForm (formName) {
+      this.submitUpload()
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!')
@@ -123,6 +139,100 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    handleChange (value) {
+      console.log(value)
+    },
+    handleExceed (files, fileList) {
+      this.$message.warning('只能选择1个文件!')
+    },
+    submitUpload () {
+      var that = this
+      setTimeout(function () {
+        if (that.$refs.upload.$children[0].fileList.length === 1) {
+          that.$refs.upload.submit()
+        } else {
+          that.$message({
+            type: 'error',
+            showClose: true,
+            duration: 3000,
+            message: '请选择文件!'
+          })
+        }
+      }, 100)
+    },
+    onChange (file) {
+      var that = this
+      var fileName = file.name.substring(file.name.lastIndexOf('.') + 1)
+      if (fileName !== 'png' && fileName !== 'jpg') {
+        that.$message({
+          type: 'error',
+          showClose: true,
+          duration: 3000,
+          message: '文件类型错误!'
+        })
+        return false
+      }
+    },
+    beforeUpload (file) {
+      var that = this
+      var fileSize = file.size
+      if (fileSize > 1048576) {
+        that.$message({
+          type: 'error',
+          showClose: true,
+          duration: 3000,
+          message: '文件大于1M!'
+        })
+        return false
+      }
+      that.downloadLoading = that.$loading({
+        lock: true,
+        text: '数据导入中...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0,0,0,0.7)'
+      })
+      let fd = new FormData()
+      console.log(fd)
+      fd.append('file', file)
+      fd.append('_t1', new Date())
+      console.log(fd)
+      this.axios({
+        method: 'post',
+        url: '/api/hello'
+      }).then(function (response) {
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+      })
+      // this.axios({
+      //   method: 'post',
+      //   url: '/upload/' + new Date().getTime(),
+      //   data: fd,
+      //   headers: {'Content-Type': 'multipart/form-data;boundary=' + new Date().getTime()}
+      // }).then(rsp => {
+      //   that.downloadLoading.close()
+      //   let resp = rsp.data
+      //   if (resp.resultCode === 200) {
+      //     that.$message.success(resp.resultMsg)
+      //   } else {
+      //     that.$message({
+      //       type: 'error',
+      //       showClose: true,
+      //       duration: 60000,
+      //       message: resp.resultMsg
+      //     })
+      //   }
+      // }).catch(error => {
+      //   that.downloadLoading.close()
+      //   that.$message({
+      //     type: 'error',
+      //     showClose: true,
+      //     duration: 60000,
+      //     message: '请求失败! error:' + error
+      //   })
+      // })
+      return false
     }
   }
 }
