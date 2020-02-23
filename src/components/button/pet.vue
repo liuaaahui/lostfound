@@ -2,7 +2,7 @@
 <div class="backgroundImg">
   <div class="search">
     <div class="title">
-        —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布寻物启示 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
+        —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布寻宠启示 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
     </div>
     <div class="searchForm">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -12,10 +12,10 @@
         <el-form-item prop="site">
           <el-input v-model="ruleForm.site" placeholder="填写详细丢失地点"></el-input>
         </el-form-item>
-        <el-form-item label="丢失物品" prop="kind">
-          <el-select v-model="ruleForm.kind" placeholder="请选择物品种类">
-            <el-option label="证件" value="shanghai"></el-option>
-            <el-option label="首饰" value="beijing"></el-option>
+        <el-form-item label="丢失宠物" prop="kind">
+          <el-select v-model="ruleForm.kind" placeholder="请选择宠物品种">
+            <el-option label="猫" value="shanghai"></el-option>
+            <el-option label="狗" value="beijing"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="goodsname">

@@ -2,17 +2,17 @@
 <div class="backgroundImg">
   <div class="search">
     <div class="title">
-        —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布寻物启示 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
+        —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布失物招领 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
     </div>
     <div class="searchForm">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="丢失地点" prop="selectedOptions">
+        <el-form-item label="拾物地点" prop="selectedOptions">
           <el-cascader :options="options" v-model="ruleForm.selectedOptions" @change="handleChange" :separator="' '"></el-cascader>
         </el-form-item>
         <el-form-item prop="site">
-          <el-input v-model="ruleForm.site" placeholder="填写详细丢失地点"></el-input>
+          <el-input v-model="ruleForm.site" placeholder="填写详细拾物地点"></el-input>
         </el-form-item>
-        <el-form-item label="丢失物品" prop="kind">
+        <el-form-item label="拾到物品" prop="kind">
           <el-select v-model="ruleForm.kind" placeholder="请选择物品种类">
             <el-option label="证件" value="shanghai"></el-option>
             <el-option label="首饰" value="beijing"></el-option>
@@ -21,7 +21,7 @@
         <el-form-item prop="goodsname">
           <el-input v-model="ruleForm.goodsname" placeholder="物品名称"></el-input>
         </el-form-item>
-        <el-form-item label="丢失时间" required>
+        <el-form-item label="拾物时间" required>
             <el-form-item prop="date">
               <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
             </el-form-item>

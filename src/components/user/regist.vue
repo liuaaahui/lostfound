@@ -58,7 +58,19 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          let _this = this
+          this.axios.post('/api/userRegist', {
+            phonenumber: _this.formName.phonenumber,
+            password: _this.formName.password
+          }).then(res => {
+            _this.$message({
+              type: 'success',
+              showClose: true,
+              duration: 3000,
+              message: '注册成功!'
+            })
+            this.$router.go(0)
+          })
         } else {
           console.log('error submit!!')
           return false

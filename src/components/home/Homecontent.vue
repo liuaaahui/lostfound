@@ -54,16 +54,16 @@ export default {
   },
   methods: {
     search () {
-      this.$router.replace('/search')
+      this.$router.push('/search')
     },
     money () {
-      this.$router.replace('/money')
+      this.$router.push('/money')
     },
     pet () {
-      this.$router.replace('/pet')
+      this.$router.push('/pet')
     },
     person () {
-      this.$router.replace('/person')
+      this.$router.push('/person')
     }
   }
 }

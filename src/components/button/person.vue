@@ -2,25 +2,46 @@
 <div class="backgroundImg">
   <div class="search">
     <div class="title">
-        —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布寻物启示 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
+        —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布寻人启事 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
     </div>
     <div class="searchForm">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="丢失地点" prop="selectedOptions">
+        <el-form-item label="走失地点" prop="selectedOptions">
           <el-cascader :options="options" v-model="ruleForm.selectedOptions" @change="handleChange" :separator="' '"></el-cascader>
         </el-form-item>
         <el-form-item prop="site">
-          <el-input v-model="ruleForm.site" placeholder="填写详细丢失地点"></el-input>
+          <el-input v-model="ruleForm.site" placeholder="填写详细走失地点"></el-input>
         </el-form-item>
-        <el-form-item label="丢失物品" prop="kind">
-          <el-select v-model="ruleForm.kind" placeholder="请选择物品种类">
-            <el-option label="证件" value="shanghai"></el-option>
-            <el-option label="首饰" value="beijing"></el-option>
+        <el-form-item label="性别" prop="sex">
+          <el-select v-model="ruleForm.sex">
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item prop="goodsname">
-          <el-input v-model="ruleForm.goodsname" placeholder="物品名称"></el-input>
+        <el-form-item label="姓名" prop="personname">
+          <el-input v-model="ruleForm.personname" placeholder="姓名" class="shortInput"></el-input>
         </el-form-item>
+        <el-form-item label="年龄" prop="personage">
+          <el-input v-model="ruleForm.personage" placeholder="年龄" class="shortInput"></el-input>
+        </el-form-item>
+        <!-- <el-col :span="8">
+          <el-form-item label="性别" prop="sex">
+            <el-select v-model="ruleForm.sex">
+              <el-option label="男" value="男"></el-option>
+              <el-option label="女" value="女"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item prop="personname">
+            <el-input v-model="ruleForm.personname" placeholder="姓名"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item prop="personage">
+            <el-input v-model="ruleForm.personage" placeholder="年龄"></el-input>
+          </el-form-item>
+        </el-col> -->
         <el-form-item label="丢失时间" required>
             <el-form-item prop="date">
               <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
@@ -76,9 +97,10 @@ export default {
       ruleForm: {
         selectedOptions: [],
         site: '',
-        kind: '',
+        sex: '',
         name: '',
-        goodsname: '',
+        personname: '',
+        personage: '',
         date: '',
         phonenumber: '',
         wechat: '',
@@ -95,11 +117,14 @@ export default {
         selectedOptions: [
           { required: true, message: '请选择地点', trigger: 'change' }
         ],
-        kind: [
-          { required: true, message: '请选择种类', trigger: 'change' }
+        sex: [
+          { required: true, message: '请选择性别', trigger: 'change' }
         ],
-        goodsname: [
-          { required: true, message: '请填写物品名称', trigger: 'blur' }
+        personname: [
+          { required: true, message: '请填写姓名', trigger: 'blur' }
+        ],
+        personage: [
+          { required: true, message: '请填写年龄', trigger: 'blur' }
         ],
         date: [
           { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
@@ -281,6 +306,9 @@ export default {
 .searchForm{
     background-color: #fff;
     padding: 30px;
+}
+.shortInput{
+    width: 217px;
 }
 @keyframes search{
   0% {
