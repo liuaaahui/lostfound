@@ -1,5 +1,4 @@
 <template>
-  <div class="homeHeight">
     <div class="head">
       <el-button round class="elbutton" @click="login">登录</el-button>
       <h1>失物招领</h1>
@@ -7,46 +6,38 @@
       <h2>———————&nbsp;&nbsp;<span class="innerWord"> 共同见证 失而复得的意义 </span>&nbsp;&nbsp;———————</h2>
       <div class="menu">
         <div class="inmenu">
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#CA2E3B" text-color="#fff">
+          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#CA2E3B" text-color="#fff">
             <el-menu-item index="1" @click="home">首页</el-menu-item>
             <el-menu-item index="2" @click="home">失物招领</el-menu-item>
             <el-menu-item index="3" @click="home">寻物启事</el-menu-item>
             <el-menu-item index="4" @click="home">寻宠启事</el-menu-item>
             <el-menu-item index="5" @click="home">寻人启事</el-menu-item>
-            <el-menu-item index="6" @click="home">抗击疫情</el-menu-item>
+            <el-menu-item index="6" @click="resist">抗击疫情</el-menu-item>
             <el-menu-item index="7" @click="home">市民声音</el-menu-item>
-            <el-menu-item index="8" @click="home">关于我们</el-menu-item>
+            <el-menu-item index="8" @click="relate">关于我们</el-menu-item>
           </el-menu>
         </div>
         <img src="../../assets/search.svg" alt="search" />
       </div>
     </div>
-    <v-content></v-content>
-    <v-bottom></v-bottom>
-  </div>
 </template>
 
 <script>
-import content from '../home/Homecontent'
-import bottom from '../home/Homebottom'
 export default {
-  name: 'Homehead',
-  components: {
-    'v-content': content,
-    'v-bottom': bottom
-  },
   data () {
     return {
       activeIndex: '1'
     }
   },
   methods: {
-    handleSelect (key, keyPath) {
-      // eslint-disable-next-line
-      console.log(key, keyPath);
-    },
     home () {
       this.$router.replace('/')
+    },
+    resist () {
+      this.$router.replace('/resist')
+    },
+    relate () {
+      this.$router.replace('/relate')
     },
     login () {
       this.$router.replace('/login')
@@ -56,9 +47,6 @@ export default {
 </script>
 
 <style scoped>
-.homeHeight{
-  height: 1800px;
-}
 .head{
   height: 200px;
   width: 100%;

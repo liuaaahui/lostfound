@@ -1,9 +1,10 @@
 <template>
     <div class="bottom">
         <div class="foot">
-            <span class="link"><span class="inner">友情链接：<a href="http://www.rbjjz.com/" target="_blank">九江信息网</a><a href="http://www.diunal.com/" target="_blank">丢哪了</a></span><br>Copyright @ 失物招领网 www.shiwzl.com 咨询热线：1234567890</span>
+            <span class="link">友情链接：<a href="http://www.rbjjz.com/" target="_blank">九江信息网</a><a href="http://www.diunal.com/" target="_blank">丢哪了</a><br><span class="inner">Copyright @ 失物招领网 www.shiwzl.com 咨询热线：1234567890</span></span>
             <span class="admin">管理员进入：审核信息 修改信息</span>
         </div>
+        <div class="blank"></div>
         <div class="fixation">
             <div class="icon">
                 <div class="click right" @click="home"><img src="../../assets/home.svg" alt="home" /><br>&nbsp;&nbsp;&nbsp;<span class="word">首页</span></div>
@@ -39,29 +40,35 @@ export default {
     width: 100%;
     height: 80px;
     background-color: #F0F0F0;
-    position: relative;
-    top: 1440px;
+    text-align: center;
     font-size: 12px;
 }
 .link{
-    position: absolute;
-    top: 23px;
-    line-height: 22px;
+    width: 100%;
+    line-height: 25px;
+    float: left;
+    padding-top: 15px;
+}
+.inner{
+    padding: 0 200px;
 }
 .admin{
-    position: absolute;
-    top: 50px;
-    right: 95px;
+    float: right;
     cursor: pointer;
+    position: relative;
+    bottom: 20px;
+    padding-right: 77px;
 }
 .admin:hover{
     text-decoration: underline;
 }
-.inner{
-    padding-left: 76px;
-}
+
 a{
     padding-left: 15px;
+}
+.blank{
+    width: 100%;
+    height: 81px;
 }
 .fixation{
     width: 100%;

@@ -1,7 +1,7 @@
 <template>
   <div class="backimg">
     <div class="back">
-      <h1 class="title">失物招领</h1>
+      <h1 class="logintitle">失物招领</h1>
       <h2 class="littleTitle">lost and found</h2>
       <div class="loginForm">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
@@ -83,7 +83,7 @@ export default {
   color: #fff;
   text-align: center;
 }
-.title{
+.logintitle{
   color: #fff;
   font: 33px/33px Helvetica,Arial,'宋体';
   font-weight: bold;

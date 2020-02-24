@@ -42,7 +42,7 @@
             <el-input v-model="ruleForm.personage" placeholder="年龄"></el-input>
           </el-form-item>
         </el-col> -->
-        <el-form-item label="丢失时间" required>
+        <el-form-item label="走失时间" required>
             <el-form-item prop="date">
               <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
             </el-form-item>
