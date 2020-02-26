@@ -41,10 +41,35 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert('submit!')
+          let _this = this
+          this.axios.post('/api/user/login', {
+            username: _this.ruleForm.phonenumber,
+            password: _this.ruleForm.password
+          }).then(res => {
+            if (res.data.length === 0) {
+              _this.$message({
+                type: 'error',
+                showClose: true,
+                duration: 3000,
+                message: '该手机号未注册!'
+              })
+              this.$refs.ruleForm.resetFields()
+            } else {
+              _this.$message({
+                type: 'success',
+                showClose: true,
+                duration: 3000,
+                message: '登录成功!'
+              })
+              _this.$store.commit('SAVE_USERINFO', res.data[0])
+              _this.$store.commit('CHECK_LOGIN', '1')
+              this.$router.replace('/')
+              this.$router.go(0)
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -61,7 +86,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .backimg{
   background: url(../../assets/background.jpg) no-repeat;
   position: absolute;

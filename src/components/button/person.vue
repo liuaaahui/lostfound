@@ -261,7 +261,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .backgroundImg{
     /* background-image: url(../../assets/back.png); */
     position: absolute;

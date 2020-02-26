@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .middleContent{
     width: 1000px;
     left: 50%;

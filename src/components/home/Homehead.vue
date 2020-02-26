@@ -1,6 +1,7 @@
 <template>
     <div class="head">
-      <el-button round class="elbutton" @click="login">登录</el-button>
+      <el-button round class="elbutton" @click="login" v-if="isLogin">登录</el-button>
+      <span class="loginMessage" v-else>欢迎您，{{$store.state.userinfo.nickname}} | <span @click="exit" class="exitbutton">退出登录</span></span>
       <h1>失物招领</h1>
       <h2>lost and found</h2>
       <h2>———————&nbsp;&nbsp;<span class="innerWord"> 共同见证 失而复得的意义 </span>&nbsp;&nbsp;———————</h2>
@@ -13,7 +14,7 @@
             <el-menu-item index="4" @click="home">寻宠启事</el-menu-item>
             <el-menu-item index="5" @click="home">寻人启事</el-menu-item>
             <el-menu-item index="6" @click="resist">抗击疫情</el-menu-item>
-            <el-menu-item index="7" @click="home">市民声音</el-menu-item>
+            <el-menu-item index="7" @click="allMessage">市民声音</el-menu-item>
             <el-menu-item index="8" @click="relate">关于我们</el-menu-item>
           </el-menu>
         </div>
@@ -26,7 +27,9 @@
 export default {
   data () {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      is: this.$store.state.isLogin,
+      isLogin: ''
     }
   },
   methods: {
@@ -36,11 +39,26 @@ export default {
     resist () {
       this.$router.replace('/resist')
     },
+    allMessage () {
+      this.$router.replace('/allMessage')
+    },
     relate () {
       this.$router.replace('/relate')
     },
     login () {
       this.$router.replace('/login')
+    },
+    exit () {
+      localStorage.clear()
+      this.$store.commit('CHECK_LOGIN', '0')
+      this.$router.go(0)
+    }
+  },
+  created () {
+    if (this.is === '1') {
+      this.isLogin = false
+    } else {
+      this.isLogin = true
     }
   }
 }
@@ -108,6 +126,16 @@ img{
   width: 25px;
   height: 25px;
   padding: 10px 5px;
+  cursor: pointer;
+}
+.loginMessage{
+  color: #fff;
+  position: absolute;
+  top: 30px;
+  left: 70px;
+  font-size: 14px;
+}
+.exitbutton{
   cursor: pointer;
 }
 </style>

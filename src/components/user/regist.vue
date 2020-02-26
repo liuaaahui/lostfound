@@ -8,6 +8,9 @@
           <el-form-item prop="phonenumber">
             <el-input placeholder="手机号,用于登录" prefix-icon="el-icon-phone" v-model="ruleForm.phonenumber"></el-input>
           </el-form-item>
+          <el-form-item prop="nickname">
+            <el-input placeholder="昵称" prefix-icon="el-icon-user-solid" v-model="ruleForm.nickname"></el-input>
+          </el-form-item>
           <el-form-item prop="password">
             <el-input placeholder="密码" prefix-icon="el-icon-lock" v-model="ruleForm.password"></el-input>
           </el-form-item>
@@ -38,12 +41,16 @@ export default {
     return {
       ruleForm: {
         phonenumber: '',
+        nickname: '',
         password: '',
         ensurepwd: ''
       },
       rules: {
         phonenumber: [
           { required: true, message: '手机号不能为空', trigger: 'blur' }
+        ],
+        nickname: [
+          { required: true, message: '昵称不能为空', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' }
@@ -55,21 +62,32 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           let _this = this
-          this.axios.post('/api/userRegist', {
-            phonenumber: _this.formName.phonenumber,
-            password: _this.formName.password
+          this.axios.post('/api/user/regist', {
+            username: _this.ruleForm.phonenumber,
+            nickname: _this.ruleForm.nickname,
+            password: _this.ruleForm.password
           }).then(res => {
-            _this.$message({
-              type: 'success',
-              showClose: true,
-              duration: 3000,
-              message: '注册成功!'
-            })
-            this.$router.go(0)
+            if (res.data === 0) {
+              _this.$message({
+                type: 'error',
+                showClose: true,
+                duration: 3000,
+                message: '该手机号已经被注册!'
+              })
+            } else {
+              _this.$message({
+                type: 'success',
+                showClose: true,
+                duration: 3000,
+                message: '注册成功!'
+              })
+            }
+            this.$refs.ruleForm.resetFields()
+            console.log(res)
           })
         } else {
           console.log('error submit!!')
@@ -87,7 +105,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .backimg{
   background: url(../../assets/background.jpg) no-repeat;
   position: absolute;

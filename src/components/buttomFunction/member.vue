@@ -4,9 +4,9 @@
     <div class="personal">
       <el-divider content-position="left"><div class="formTitle">会员信息</div></el-divider>
       <div class="block"></div>
-      <span class="firstmar">会员账号：</span>
+      <span class="firstmar">会员账号：{{$store.state.userinfo.nickname}}</span>
       <el-divider></el-divider>
-      <span>会员手机：</span>
+      <span>会员手机：{{$store.state.userinfo.username}}</span>
     </div>
     <div class="information personal">
       <el-divider content-position="left"><div class="formTitle">我的寻物招领信息</div></el-divider>
@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style  scoped>
 .personal{
     padding: 20px 20px 10px;
     font-size: 15px;

@@ -37,10 +37,24 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert('submit!')
+          let _this = this
+          this.axios.post('/api/report/addReport', {
+            phonenumber: _this.ruleForm.phone,
+            informer: this.$store.state.userinfo.username
+          }).then(res => {
+            if (res.data === 1) {
+              _this.$message({
+                type: 'success',
+                showClose: true,
+                duration: 3000,
+                message: '举报成功!'
+              })
+            }
+            this.$refs.ruleForm.resetFields()
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -51,14 +65,14 @@ export default {
 }
 </script>
 
-<style>
+<style  scoped>
 .reportphone{
     padding: 20px 20px 10px;
 }
 .formTitle{
     font-size: 20px;
 }
-.el-input__inner {
+.el-input {
     width: 200px;
 }
 .alert{

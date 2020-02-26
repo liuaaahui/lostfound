@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Homepage from '@/components/home/Homepage'
 import resist from '@/components/navigation/resist'
+import allMessage from '@/components/navigation/allMessage'
 import relate from '@/components/navigation/relate'
 import login from '@/components/user/login'
 import regist from '@/components/user/regist'
@@ -27,6 +28,11 @@ export default new Router({
       path: '/resist',
       name: 'resist',
       component: resist
+    },
+    {
+      path: '/allMessage',
+      name: 'allMessage',
+      component: allMessage
     },
     {
       path: '/relate',
