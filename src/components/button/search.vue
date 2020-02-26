@@ -14,8 +14,9 @@
         </el-form-item>
         <el-form-item label="丢失物品" prop="kind">
           <el-select v-model="ruleForm.kind" placeholder="请选择物品种类">
-            <el-option label="证件" value="shanghai"></el-option>
-            <el-option label="首饰" value="beijing"></el-option>
+            <el-option label="证件" value="证件"></el-option>
+            <el-option label="首饰" value="首饰"></el-option>
+            <el-option label="其他" value=" "></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="goodsname">
@@ -23,7 +24,7 @@
         </el-form-item>
         <el-form-item label="丢失时间" required>
             <el-form-item prop="date">
-              <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" @change="datachange"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
             </el-form-item>
         </el-form-item>
          <el-form-item label="联系人" prop="name">
@@ -86,6 +87,8 @@ export default {
         remark: ''
       },
       options: options,
+      spot: '',
+      Selectdata: '',
       fileList: [],
       downLoadLoading: '',
       rules: {
@@ -102,7 +105,7 @@ export default {
           { required: true, message: '请填写物品名称', trigger: 'blur' }
         ],
         date: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
         ],
         name: [
           { required: true, message: '请填写联系人', trigger: 'blur' }
@@ -138,7 +141,12 @@ export default {
       this.$refs[formName].resetFields()
     },
     handleChange (value) {
-      console.log(value)
+      console.log(this.Selectdata)
+      console.log(this.ruleForm.name)
+      this.spot = value[0] + '--' + value[1]
+    },
+    datachange (value) {
+      this.Selectdata = value
     },
     handleExceed (files, fileList) {
       this.$message.warning('只能选择1个文件!')
@@ -190,10 +198,8 @@ export default {
         background: 'rgba(0,0,0,0.7)'
       })
       let fd = new FormData()
-      console.log(fd)
       fd.append('file', file)
       fd.append('_t1', new Date())
-      console.log(fd)
       // this.axios({
       //   method: 'post',
       //   url: '/api/hello'
@@ -202,12 +208,24 @@ export default {
       // }).catch(function (error) {
       //   console.log(error)
       // })
-      this.axios({
-        method: 'post',
-        // url: '/upload/' + new Date().getTime(),
-        url: '/api/hello',
-        data: fd
-        // headers: {'Content-Type': 'multipart/form-data;boundary=' + new Date().getTime()}
+      // this.axios({
+      //   method: 'post',
+      // url: '/upload/' + new Date().getTime(),
+      // url: '/api/upload',
+      // data: fd
+      // headers: {'Content-Type': 'multipart/form-data;boundary=' + new Date().getTime()}
+      this.axios.post('/api/search/addsearch', {
+        spot: this.spot,
+        definiteSpot: that.ruleForm.site,
+        kind: that.ruleForm.kind,
+        goodsname: that.ruleForm.goodsname,
+        Selectdata: this.Selectdata,
+        name: that.ruleForm.name,
+        phonenumber: that.ruleForm.phonenumber,
+        wechat: that.ruleForm.wechat,
+        reward: that.ruleForm.reward,
+        remark: that.ruleForm.remark,
+        img: fd
       }).then(rsp => {
         that.downloadLoading.close()
         let resp = rsp.data
@@ -236,7 +254,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .backgroundImg{
     /* background-image: url(../../assets/back.png); */
     position: absolute;
