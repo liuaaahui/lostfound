@@ -1,10 +1,10 @@
 <template>
 <div class="backgroundImg">
-  <div class="search">
+  <div class="person">
     <div class="title">
         —————————— &nbsp;&nbsp;&nbsp;&nbsp;<span class="titleWord"> 发布寻人启事 </span>&nbsp;&nbsp;&nbsp;&nbsp; ——————————
     </div>
-    <div class="searchForm">
+    <div class="personForm">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="走失地点" prop="selectedOptions">
           <el-cascader :options="options" v-model="ruleForm.selectedOptions" @change="handleChange" :separator="' '"></el-cascader>
@@ -24,28 +24,10 @@
         <el-form-item label="年龄" prop="personage">
           <el-input v-model="ruleForm.personage" placeholder="年龄" class="shortInput"></el-input>
         </el-form-item>
-        <!-- <el-col :span="8">
-          <el-form-item label="性别" prop="sex">
-            <el-select v-model="ruleForm.sex">
-              <el-option label="男" value="男"></el-option>
-              <el-option label="女" value="女"></el-option>
-            </el-select>
+        <el-form-item label="丢失时间" required>
+          <el-form-item prop="date">
+            <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" @change="datachange"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
           </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item prop="personname">
-            <el-input v-model="ruleForm.personname" placeholder="姓名"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item prop="personage">
-            <el-input v-model="ruleForm.personage" placeholder="年龄"></el-input>
-          </el-form-item>
-        </el-col> -->
-        <el-form-item label="走失时间" required>
-            <el-form-item prop="date">
-              <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
-            </el-form-item>
         </el-form-item>
          <el-form-item label="联系人" prop="name">
           <el-input v-model="ruleForm.name" placeholder="联系人姓名"></el-input>
@@ -62,12 +44,10 @@
         <el-form-item label="备注" prop="remark">
           <el-input type="textarea" v-model="ruleForm.remark"></el-input>
         </el-form-item>
-        <el-form-item label="上传图片" prop="uploadImg">
-          <!-- v-model="ruleForm.uploadImg" -->
-          <!-- <button>选择文件</button> -->
+        <el-form-item label="上传图片">
           <el-upload class="upload-demo"
                      ref="upload"
-                     action="https://jsonplaceholder.typicode.com/posts/"
+                     action="''"
                      :on-change="onChange"
                      :on-exceed="handleExceed"
                      :file-list="fileList"
@@ -108,6 +88,10 @@ export default {
         remark: ''
       },
       options: options,
+      spot: '',
+      Selectdata: '',
+      imgURL: '',
+      gettime: '',
       fileList: [],
       downLoadLoading: '',
       rules: {
@@ -127,7 +111,7 @@ export default {
           { required: true, message: '请填写年龄', trigger: 'blur' }
         ],
         date: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          { type: 'string', required: true, message: '请选择日期', trigger: 'change' }
         ],
         name: [
           { required: true, message: '请填写联系人', trigger: 'blur' }
@@ -148,13 +132,19 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
-      this.submitUpload()
-      this.$refs[formName].validate((valid) => {
+    submitForm () {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          alert('submit!')
+          let yy = new Date().getFullYear()
+          let mm = new Date().getMonth() + 1
+          let dd = new Date().getDate()
+          let hh = new Date().getHours()
+          let mf = new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()
+          let ss = new Date().getSeconds() < 10 ? '0' + new Date().getSeconds() : new Date().getSeconds()
+          this.gettime = yy + '-' + mm + '-' + dd + ' ' + hh + ':' + mf + ':' + ss
+          this.submitUpload()
         } else {
-          console.log('error submit!!')
+          console.log('error!')
           return false
         }
       })
@@ -163,7 +153,10 @@ export default {
       this.$refs[formName].resetFields()
     },
     handleChange (value) {
-      console.log(value)
+      this.spot = value[0] + '--' + value[1]
+    },
+    datachange (value) {
+      this.Selectdata = value
     },
     handleExceed (files, fileList) {
       this.$message.warning('只能选择1个文件!')
@@ -215,35 +208,54 @@ export default {
         background: 'rgba(0,0,0,0.7)'
       })
       let fd = new FormData()
-      console.log(fd)
       fd.append('file', file)
-      fd.append('_t1', new Date())
-      console.log(fd)
-      // this.axios({
-      //   method: 'post',
-      //   url: '/api/hello'
-      // }).then(function (response) {
-      //   console.log(response)
-      // }).catch(function (error) {
-      //   console.log(error)
-      // })
       this.axios({
         method: 'post',
-        // url: '/upload/' + new Date().getTime(),
-        url: '/api/hello',
-        data: fd
-        // headers: {'Content-Type': 'multipart/form-data;boundary=' + new Date().getTime()}
+        url: '/api/upload/add',
+        data: fd,
+        headers: {'Content-Type': 'multipart/form-data;boundary=' + new Date().getTime()}
       }).then(rsp => {
         that.downloadLoading.close()
-        let resp = rsp.data
-        if (resp.resultCode === 200) {
-          that.$message.success(resp.resultMsg)
+        if (rsp.data !== '上传失败') {
+          this.imgURL = rsp.data
+          this.axios.post('/api/person/addPerson', {
+            spot: this.spot,
+            definiteSpot: that.ruleForm.site,
+            sex: that.ruleForm.sex,
+            personname: that.ruleForm.personname,
+            personage: that.ruleForm.personage,
+            selectdata: this.Selectdata,
+            name: that.ruleForm.name,
+            phonenumber: that.ruleForm.phonenumber,
+            wechat: that.ruleForm.wechat,
+            reward: that.ruleForm.reward,
+            remark: that.ruleForm.remark,
+            img: this.imgURL,
+            time: this.gettime
+          }).then(res => {
+            if (res.data === 1) {
+              that.$message({
+                type: 'success',
+                showClose: true,
+                duration: 3000,
+                message: '发布成功!'
+              })
+            } else {
+              that.$message({
+                type: 'error',
+                showClose: true,
+                duration: 60000,
+                message: '发布失败'
+              })
+            }
+            this.$refs.ruleForm.resetFields()
+          })
         } else {
           that.$message({
             type: 'error',
             showClose: true,
             duration: 60000,
-            message: resp.resultMsg
+            message: '图片上传出错'
           })
         }
       }).catch(error => {
@@ -252,7 +264,7 @@ export default {
           type: 'error',
           showClose: true,
           duration: 60000,
-          message: '请求失败! error:' + error
+          message: '图片请求失败! error:' + error
         })
       })
       return false
@@ -262,30 +274,14 @@ export default {
 </script>
 
 <style scoped>
-.backgroundImg{
-    /* background-image: url(../../assets/back.png); */
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-position: center 0;
-    background-attachment: fixed;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    /* background-size: 100% 100%; */
-    /* -webkit-background-size: 100% 100%; */
-    /* -moz-background-size: 100% 100%; */
-}
-.search{
+.person{
     width: 700px;
     position: relative;
     left: 50%;
     margin-left: -350px;
     border: 1px solid #ccc;
     border-style: none solid;
-    animation:search 1s;
+    animation:person 1s;
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     -moz-animation-fill-mode: both;
@@ -303,14 +299,11 @@ export default {
     font-size: 20px;
     color: #fff;
 }
-.searchForm{
+.personForm{
     background-color: #fff;
     padding: 30px;
 }
-.shortInput{
-    width: 217px;
-}
-@keyframes search{
+@keyframes person{
   0% {
       opacity: 0;
       transform: translateX(2000px);

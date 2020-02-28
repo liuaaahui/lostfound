@@ -22,25 +22,6 @@ export default {
   components: {
     'v-head': head,
     'v-bottom': bottom
-  },
-  data () {
-    return {
-      newsList: []
-    }
-  },
-  methods: {
-    getNews () {
-      var api = 'http://api.tianapi.com/txapi/ncov/index?key=f4a13c0f8f4e05a5eed41b24d5513329'
-      this.axios.get(api).then((res) => {
-        this.newsList = res.data.newslist[0].news
-        // console.log(this.newsList)
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  },
-  mounted () {
-    this.getNews()
   }
 }
 </script>

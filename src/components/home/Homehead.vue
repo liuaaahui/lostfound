@@ -9,10 +9,10 @@
         <div class="inmenu">
           <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#CA2E3B" text-color="#fff">
             <el-menu-item index="1" @click="home">首页</el-menu-item>
-            <el-menu-item index="2" @click="home">失物招领</el-menu-item>
-            <el-menu-item index="3" @click="home">寻物启事</el-menu-item>
-            <el-menu-item index="4" @click="home">寻宠启事</el-menu-item>
-            <el-menu-item index="5" @click="home">寻人启事</el-menu-item>
+            <el-menu-item index="2" @click="allSearch">失物招领</el-menu-item>
+            <el-menu-item index="3" @click="allMoney">寻物启事</el-menu-item>
+            <el-menu-item index="4" @click="allPet">寻宠启事</el-menu-item>
+            <el-menu-item index="5" @click="allPerson">寻人启事</el-menu-item>
             <el-menu-item index="6" @click="resist">抗击疫情</el-menu-item>
             <el-menu-item index="7" @click="allMessage">市民声音</el-menu-item>
             <el-menu-item index="8" @click="relate">关于我们</el-menu-item>
@@ -35,6 +35,18 @@ export default {
   methods: {
     home () {
       this.$router.replace('/')
+    },
+    allSearch () {
+      this.$router.replace('/allSearch')
+    },
+    allMoney () {
+      this.$router.replace('/allMoney')
+    },
+    allPet () {
+      this.$router.replace('/allPet')
+    },
+    allPerson () {
+      this.$router.replace('/allPerson')
     },
     resist () {
       this.$router.replace('/resist')

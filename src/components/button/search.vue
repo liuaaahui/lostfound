@@ -23,9 +23,9 @@
           <el-input v-model="ruleForm.goodsname" placeholder="物品名称"></el-input>
         </el-form-item>
         <el-form-item label="丢失时间" required>
-            <el-form-item prop="date">
-              <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" @change="datachange"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
-            </el-form-item>
+          <el-form-item prop="date">
+            <el-date-picker type="date" placeholder="点击选择日期" v-model="ruleForm.date" @change="datachange"  format="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
+          </el-form-item>
         </el-form-item>
          <el-form-item label="联系人" prop="name">
           <el-input v-model="ruleForm.name" placeholder="联系人姓名"></el-input>
@@ -88,6 +88,7 @@ export default {
       spot: '',
       Selectdata: '',
       imgURL: '',
+      gettime: '',
       fileList: [],
       downLoadLoading: '',
       rules: {
@@ -128,6 +129,13 @@ export default {
     submitForm () {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          let yy = new Date().getFullYear()
+          let mm = new Date().getMonth() + 1
+          let dd = new Date().getDate()
+          let hh = new Date().getHours()
+          let mf = new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()
+          let ss = new Date().getSeconds() < 10 ? '0' + new Date().getSeconds() : new Date().getSeconds()
+          this.gettime = yy + '-' + mm + '-' + dd + ' ' + hh + ':' + mf + ':' + ss
           this.submitUpload()
         } else {
           console.log('error!')
@@ -215,7 +223,8 @@ export default {
             wechat: that.ruleForm.wechat,
             reward: that.ruleForm.reward,
             remark: that.ruleForm.remark,
-            img: this.imgURL
+            img: this.imgURL,
+            time: this.gettime
           }).then(res => {
             if (res.data === 1) {
               that.$message({
@@ -223,6 +232,13 @@ export default {
                 showClose: true,
                 duration: 3000,
                 message: '发布成功!'
+              })
+            } else {
+              that.$message({
+                type: 'error',
+                showClose: true,
+                duration: 60000,
+                message: '发布失败'
               })
             }
             this.$refs.ruleForm.resetFields()
