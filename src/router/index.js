@@ -132,5 +132,10 @@ export default new Router({
       name: 'innerContent4',
       component: innerContent4
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return {
+      x: 0,
+      y: 0}
+  }
 })

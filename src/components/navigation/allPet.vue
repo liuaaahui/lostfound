@@ -16,7 +16,7 @@
         </div>
       </span>
       <div class="pagination">
-        <el-pagination background layout="prev, pager, next" @prev-click="prePage" @next-click="nextPage" :total="totalData" :page-size="pageSize"></el-pagination>
+        <el-pagination background layout="prev, pager, next" @current-change="totop" @prev-click="prePage" @next-click="nextPage" :total="totalData" :page-size="pageSize"></el-pagination>
       </div>
     </div>
     <v-bottom></v-bottom>
@@ -64,6 +64,9 @@ export default {
     prePage () {
       if (this.currentPage === 0) return
       this.dataShow = this.totalPage[--this.currentPage]
+    },
+    totop () {
+      scrollTo(0, 0)
     },
     innerContent (id) {
       this.$router.push({

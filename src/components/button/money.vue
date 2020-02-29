@@ -212,7 +212,7 @@ export default {
         that.downloadLoading.close()
         if (rsp.data !== '上传失败') {
           this.imgURL = rsp.data
-          this.axios.post('/api/money/addMoney', {
+          this.axios.post('/api/search/addSearch', {
             spot: this.spot,
             definiteSpot: that.ruleForm.site,
             kind: that.ruleForm.kind,

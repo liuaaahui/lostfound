@@ -35,7 +35,6 @@ export default {
     getallMessage () {
       this.axios.post('/api/message/allMessage').then(res => {
         this.allMessage = res.data
-        console.log(this.allMessage)
       })
     }
   },
