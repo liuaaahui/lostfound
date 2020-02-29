@@ -224,7 +224,9 @@ export default {
             reward: that.ruleForm.reward,
             remark: that.ruleForm.remark,
             img: this.imgURL,
-            time: this.gettime
+            time: this.gettime,
+            user: this.$store.state.userinfo.username,
+            title: this.spot + ': 在' + that.ruleForm.site + '丢失' + that.ruleForm.goodsname
           }).then(res => {
             if (res.data === 1) {
               that.$message({

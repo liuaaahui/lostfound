@@ -47,7 +47,8 @@ export default {
       },
       rules: {
         phonenumber: [
-          { required: true, message: '手机号不能为空', trigger: 'blur' }
+          { required: true, message: '手机号不能为空', trigger: 'blur' },
+          { min: 11, max: 11, message: '长度在 11 个字符', trigger: 'blur' }
         ],
         nickname: [
           { required: true, message: '昵称不能为空', trigger: 'blur' }

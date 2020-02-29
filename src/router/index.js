@@ -30,42 +30,66 @@ export default new Router({
     {
       path: '/',
       name: 'Homepage',
-      component: Homepage
+      component: Homepage,
+      meta: {
+        requireAuth: false
+      }
     },
     {
       path: '/allSearch',
       name: 'allSearch',
-      component: allSearch
+      component: allSearch,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/allMoney',
       name: 'allMoney',
-      component: allMoney
+      component: allMoney,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/allPet',
       name: 'allPet',
-      component: allPet
+      component: allPet,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/allPerson',
       name: 'allPerson',
-      component: allPerson
+      component: allPerson,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/resist',
       name: 'resist',
-      component: resist
+      component: resist,
+      meta: {
+        requireAuth: false
+      }
     },
     {
       path: '/allMessage',
       name: 'allMessage',
-      component: allMessage
+      component: allMessage,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/relate',
       name: 'relate',
-      component: relate
+      component: relate,
+      meta: {
+        requireAuth: false
+      }
     },
     {
       path: '/login',
@@ -80,57 +104,90 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
-      component: search
+      component: search,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/money',
       name: 'money',
-      component: money
+      component: money,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/pet',
       name: 'pet',
-      component: pet
+      component: pet,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/person',
       name: 'person',
-      component: person
+      component: person,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/member',
       name: 'member',
-      component: member
+      component: member,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/report',
       name: 'report',
-      component: report
+      component: report,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/message',
       name: 'message',
-      component: message
+      component: message,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/innerContent',
       name: 'innerContent',
-      component: innerContent
+      component: innerContent,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/innerContent2',
       name: 'innerContent2',
-      component: innerContent2
+      component: innerContent2,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/innerContent3',
       name: 'innerContent3',
-      component: innerContent3
+      component: innerContent3,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/innerContent4',
       name: 'innerContent4',
-      component: innerContent4
+      component: innerContent4,
+      meta: {
+        requireAuth: true
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {

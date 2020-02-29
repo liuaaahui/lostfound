@@ -63,7 +63,7 @@ export default {
     exit () {
       localStorage.clear()
       this.$store.commit('CHECK_LOGIN', '0')
-      this.$router.go(0)
+      this.$router.replace('/')
     }
   },
   created () {

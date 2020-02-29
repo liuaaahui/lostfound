@@ -231,7 +231,9 @@ export default {
             reward: that.ruleForm.reward,
             remark: that.ruleForm.remark,
             img: this.imgURL,
-            time: this.gettime
+            time: this.gettime,
+            user: this.$store.state.userinfo.username,
+            title: this.spot + ': ' + that.ruleForm.personname + that.ruleForm.personage + '岁在' + that.ruleForm.site + '走失'
           }).then(res => {
             if (res.data === 1) {
               that.$message({
