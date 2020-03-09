@@ -3,13 +3,13 @@
     <v-head></v-head>
     <div class="middleContent">
       <div class="innercontent">
-        <div><h1>{{aPerson.spot}}：{{aPerson.personname}}{{aPerson.personage}}岁在{{aPerson.definiteSpot}}走失</h1></div>
+        <div><h1><span v-if="aPerson.finish === '已完成'">【{{aPerson.finish}}】</span>{{aPerson.title}}</h1></div>
         <div class="subhead">栏目：寻人启事 发布时间：{{aPerson.time}}</div>
         <el-divider content-position="left"><div class="formTitle">信息详情</div></el-divider>
         <div class="buttomSolid"><img src="../../assets/phone.svg" alt="phone" class="iconimg" />联系电话：{{aPerson.phonenumber}}</div>
-        <div class="buttomSolid"><img src="../../assets/kind.svg" alt="kind" class="iconimg" />性别：{{aPerson.sex}}</div>
+        <div class="buttomSolid"><img src="../../assets/kind.svg" alt="kind" class="iconimg" />性别：{{aPerson.kindOrSex}}</div>
         <div class="buttomSolid"><img src="../../assets/spot.svg" alt="spot" class="iconimg" />走失地点：{{aPerson.spot}}{{aPerson.definiteSpot}}</div>
-        <div class="buttomSolid"><img src="../../assets/name.svg" alt="name" class="iconimg" />联系人员：{{aPerson.name}}</div>
+        <div class="buttomSolid"><img src="../../assets/name.svg" alt="name" class="iconimg" />联系人员：{{aPerson.contact}}</div>
         <div class="buttomSolid"><img src="../../assets/time.svg" alt="time" class="iconimg" />走失时间：{{aPerson.selectdata}}</div>
         <div class="buttomSolid"><img src="../../assets/reward.svg" alt="reward" class="iconimg" />酬谢金额：{{aPerson.reward}}</div>
         <div class="buttomSolid bigline clearfix"><div class="personleft"><img src="../../assets/img.svg" alt="img" class="iconimg" />人物图片：</div><img :src="aPerson.img" alt="img" class="personimg" /></div>
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getinnerContent () {
-      this.axios.get('/api/person/PersonbyID', {
+      this.axios.get('/api/search/SearchbyID', {
         params: {
           id: this.$route.params.personID
         }

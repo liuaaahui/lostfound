@@ -7,7 +7,7 @@
           <div class="position">
             <div class="moneyleft"><img :src="index.img" alt="img" class="moneyimg" /></div>
             <div class="moneyleft moneypadding">
-              <div class="moneytitle" @click="innerContent(index.Id)">在{{index.definiteSpot}}丢失{{index.goodsname}}</div>
+              <div class="moneytitle" @click="innerContent(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>在{{index.definiteSpot}}丢失{{index.fillname}}</div>
               <div class="moneycontent">所在城市 ：{{index.spot}}</div>
               <div class="moneycontent">发布时间 ：{{index.time}}</div>
               <div class="moneycontent">信息类型 ：寻物启事</div>
@@ -47,7 +47,7 @@ export default {
       return this.allMoney.length
     },
     getallMoney () {
-      this.axios.post('/api/money/allMoney').then(res => {
+      this.axios.post('/api/search/getSearchbySecondKind').then(res => {
         this.allMoney = res.data
         this.totalData = this.allMoney.length
         this.pageNum = Math.ceil(this.allMoney.length / this.pageSize) || 1

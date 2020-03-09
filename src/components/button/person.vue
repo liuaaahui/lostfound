@@ -218,22 +218,23 @@ export default {
         that.downloadLoading.close()
         if (rsp.data !== '上传失败') {
           this.imgURL = rsp.data
-          this.axios.post('/api/person/addPerson', {
+          this.axios.post('/api/search/addSecondKindSearch', {
             spot: this.spot,
             definiteSpot: that.ruleForm.site,
-            sex: that.ruleForm.sex,
-            personname: that.ruleForm.personname,
+            kindOrSex: that.ruleForm.sex,
+            fillname: that.ruleForm.personname,
             personage: that.ruleForm.personage,
+            title: this.spot + '：' + that.ruleForm.personname + that.ruleForm.personage + '岁在' + that.ruleForm.site + '走失',
             selectdata: this.Selectdata,
-            name: that.ruleForm.name,
+            contact: that.ruleForm.name,
             phonenumber: that.ruleForm.phonenumber,
             wechat: that.ruleForm.wechat,
             reward: that.ruleForm.reward,
             remark: that.ruleForm.remark,
             img: this.imgURL,
             time: this.gettime,
-            user: this.$store.state.userinfo.username,
-            title: this.spot + ': ' + that.ruleForm.personname + that.ruleForm.personage + '岁在' + that.ruleForm.site + '走失'
+            kind: '寻人启事',
+            user: this.$store.state.userinfo.username
           }).then(res => {
             if (res.data === 1) {
               that.$message({

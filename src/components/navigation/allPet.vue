@@ -7,7 +7,7 @@
           <div class="position">
             <div class="petleft"><img :src="index.img" alt="img" class="petimg" /></div>
             <div class="petleft petpadding">
-              <div class="pettitle" @click="innerContent(index.Id)">在{{index.definiteSpot}}丢失{{index.goodsname}}</div>
+              <div class="pettitle" @click="innerContent(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>在{{index.definiteSpot}}丢失{{index.fillname}}</div>
               <div class="petcontent">所在城市 ：{{index.spot}}</div>
               <div class="petcontent">发布时间 ：{{index.time}}</div>
               <div class="petcontent">信息类型 ：寻宠启示</div>
@@ -47,7 +47,7 @@ export default {
       return this.allPet.length
     },
     getallPet () {
-      this.axios.post('/api/pet/allPet').then(res => {
+      this.axios.post('/api/search/getSearchbyThirdKind').then(res => {
         this.allPet = res.data
         this.totalData = this.allPet.length
         this.pageNum = Math.ceil(this.allPet.length / this.pageSize) || 1

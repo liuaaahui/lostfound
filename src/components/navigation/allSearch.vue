@@ -7,7 +7,7 @@
           <div class="position">
             <div class="searchleft"><img :src="index.img" alt="img" class="searchimg" /></div>
             <div class="searchleft searchpadding">
-              <div class="searchtitle" @click="innerContent(index.Id)">在{{index.definiteSpot}}拾到{{index.goodsname}}</div>
+              <div class="searchtitle" @click="innerContent(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>在{{index.definiteSpot}}拾到{{index.fillname}}</div>
               <div class="searchcontent">所在城市 ：{{index.spot}}</div>
               <div class="searchcontent">发布时间 ：{{index.time}}</div>
               <div class="searchcontent">信息类型 ：失物招领</div>
@@ -47,7 +47,7 @@ export default {
       return this.allSearch.length
     },
     getallSearch () {
-      this.axios.post('/api/search/allSearch').then(res => {
+      this.axios.post('/api/search/getSearchbyFirstKind').then(res => {
         this.allSearch = res.data
         this.totalData = this.allSearch.length
         this.pageNum = Math.ceil(this.allSearch.length / this.pageSize) || 1

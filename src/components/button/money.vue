@@ -16,7 +16,7 @@
           <el-select v-model="ruleForm.kind" placeholder="请选择物品种类">
             <el-option label="证件" value="证件"></el-option>
             <el-option label="首饰" value="首饰"></el-option>
-            <el-option label="其他" value=" "></el-option>
+            <el-option label="其他" value="其他"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="goodsname">
@@ -212,21 +212,22 @@ export default {
         that.downloadLoading.close()
         if (rsp.data !== '上传失败') {
           this.imgURL = rsp.data
-          this.axios.post('/api/search/addSearch', {
+          this.axios.post('/api/search/addFirstKindSearch', {
             spot: this.spot,
             definiteSpot: that.ruleForm.site,
-            kind: that.ruleForm.kind,
-            goodsname: that.ruleForm.goodsname,
+            kindOrSex: that.ruleForm.kind,
+            fillname: that.ruleForm.goodsname,
+            title: this.spot + '：在' + that.ruleForm.site + '拾到' + that.ruleForm.goodsname,
             selectdata: this.Selectdata,
-            name: that.ruleForm.name,
+            contact: that.ruleForm.name,
             phonenumber: that.ruleForm.phonenumber,
             wechat: that.ruleForm.wechat,
             reward: that.ruleForm.reward,
             remark: that.ruleForm.remark,
             img: this.imgURL,
             time: this.gettime,
-            user: this.$store.state.userinfo.username,
-            title: this.spot + ': 在' + that.ruleForm.site + '拾到' + that.ruleForm.goodsname
+            kind: '失物招领',
+            user: this.$store.state.userinfo.username
           }).then(res => {
             if (res.data === 1) {
               that.$message({

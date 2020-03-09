@@ -21,7 +21,7 @@
                     <span v-for='(index, item) of someSearch' :key="'span'+item">
                       <div class="everyMessage">
                         <div class="messageNumber">{{item + 1}}</div>
-                        <div class="messageTitle" @click="innerContent(index.Id)">{{index.spot}}：在{{index.definiteSpot}}拾到{{index.goodsname}}</div>
+                        <div class="messageTitle" @click="innerContent(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>{{index.title}}</div>
                         <div class="messageTime">{{index.time}}</div>
                       </div>
                     </span>
@@ -35,7 +35,7 @@
                     <span v-for='(index, item) of someMoney' :key="'span'+item">
                       <div class="everyMessage">
                         <div class="messageNumber">{{item + 1}}</div>
-                        <div class="messageTitle" @click="innerContent2(index.Id)">{{index.spot}}：在{{index.definiteSpot}}丢失{{index.goodsname}}</div>
+                        <div class="messageTitle" @click="innerContent2(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>{{index.title}}</div>
                         <div class="messageTime">{{index.time}}</div>
                       </div>
                     </span>
@@ -49,7 +49,7 @@
                     <span v-for='(index, item) of somePet' :key="'span'+item">
                       <div class="everyMessage">
                         <div class="messageNumber">{{item + 1}}</div>
-                        <div class="messageTitle" @click="innerContent3(index.Id)">{{index.spot}}：在{{index.definiteSpot}}丢失{{index.goodsname}}</div>
+                        <div class="messageTitle" @click="innerContent3(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>{{index.title}}</div>
                         <div class="messageTime">{{index.time}}</div>
                       </div>
                     </span>
@@ -63,7 +63,7 @@
                     <span v-for='(index, item) of somePerson' :key="'span'+item">
                       <div class="everyMessage">
                         <div class="messageNumber">{{item + 1}}</div>
-                        <div class="messageTitle" @click="innerContent4(index.Id)">{{index.spot}}：{{index.personname}}{{index.personage}}岁在{{index.definiteSpot}}走失</div>
+                        <div class="messageTitle" @click="innerContent4(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>{{index.title}}</div>
                         <div class="messageTime">{{index.time}}</div>
                       </div>
                     </span>
@@ -115,22 +115,22 @@ export default {
       this.$router.push('/allPerson')
     },
     getsomeSearch () {
-      this.axios.post('/api/search/allSearch').then(res => {
+      this.axios.post('/api/search/getSearchbyFirstKind').then(res => {
         this.someSearch = res.data.slice(0, this.pageSize)
       })
     },
     getsomeMoney () {
-      this.axios.post('/api/money/allMoney').then(res => {
+      this.axios.post('/api/search/getSearchbySecondKind').then(res => {
         this.someMoney = res.data.slice(0, this.pageSize)
       })
     },
     getsomePet () {
-      this.axios.post('/api/pet/allPet').then(res => {
+      this.axios.post('/api/search/getSearchbyThirdKind').then(res => {
         this.somePet = res.data.slice(0, this.pageSize)
       })
     },
     getsomePerson () {
-      this.axios.post('/api/person/allPerson').then(res => {
+      this.axios.post('/api/search/getSearchbyForthKind').then(res => {
         this.somePerson = res.data.slice(0, this.pageSize)
       })
     },

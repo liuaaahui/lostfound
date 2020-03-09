@@ -7,7 +7,7 @@
           <div class="position">
             <div class="personleft"><img :src="index.img" alt="img" class="personimg" /></div>
             <div class="personleft personpadding">
-              <div class="persontitle" @click="innerContent(index.Id)">{{index.personname}}{{index.personage}}岁在{{index.definiteSpot}}走失</div>
+              <div class="persontitle" @click="innerContent(index.id)"><span v-if="index.finish === '已完成'">【{{index.finish}}】</span>{{index.fillname}}{{index.personage}}岁在{{index.definiteSpot}}走失</div>
               <div class="personcontent">所在城市 ：{{index.spot}}</div>
               <div class="personcontent">发布时间 ：{{index.time}}</div>
               <div class="personcontent">信息类型 ：寻人启事</div>
@@ -47,7 +47,7 @@ export default {
       return this.allPerson.length
     },
     getallPerson () {
-      this.axios.post('/api/person/allPerson').then(res => {
+      this.axios.post('/api/search/getSearchbyForthKind').then(res => {
         this.allPerson = res.data
         this.totalData = this.allPerson.length
         this.pageNum = Math.ceil(this.allPerson.length / this.pageSize) || 1
