@@ -21,6 +21,8 @@ import innerContent from '@/components/content/innerContent'
 import innerContent2 from '@/components/content/innerContent2'
 import innerContent3 from '@/components/content/innerContent3'
 import innerContent4 from '@/components/content/innerContent4'
+import adminLogin from '@/components/admin/adminLogin'
+import adminHome from '@/components/admin/adminHome'
 
 Vue.use(Router)
 
@@ -188,6 +190,22 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },
+    {
+      path: '/adminLogin',
+      name: 'adminLogin',
+      component: adminLogin
+      // meta: {
+      //   requireAuth: true
+      // }
+    },
+    {
+      path: '/adminHome',
+      name: 'adminHome',
+      component: adminHome
+      // meta: {
+      //   requireAuth: true
+      // }
     }
   ],
   scrollBehavior (to, from, savedPosition) {

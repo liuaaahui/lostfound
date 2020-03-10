@@ -2,7 +2,7 @@
     <div class="bottom">
         <div class="foot">
             <span class="link"><span class="inner">友情链接：<a href="http://www.rbjjz.com/" target="_blank">九江信息网</a><a href="http://www.diunal.com/" target="_blank">丢哪了</a></span><br>Copyright @ 失物招领网 www.shiwzl.com 咨询热线：1234567890</span>
-            <span class="admin">管理员进入：审核信息 修改信息</span>
+            <span class="admin" @click="adminLogin">管理员进入：审核信息 修改信息</span>
         </div>
         <div class="fixation">
             <div class="icon">
@@ -18,6 +18,9 @@
 <script>
 export default {
   methods: {
+    adminLogin () {
+      this.$router.replace('/adminLogin')
+    },
     home () {
       this.$router.replace('/')
     },
