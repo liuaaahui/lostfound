@@ -23,6 +23,10 @@ import innerContent3 from '@/components/content/innerContent3'
 import innerContent4 from '@/components/content/innerContent4'
 import adminLogin from '@/components/admin/adminLogin'
 import adminHome from '@/components/admin/adminHome'
+import showUser from '@/components/admin/showUser'
+import addUser from '@/components/admin/addUser'
+import searchControl from '@/components/admin/searchControl'
+import reportControl from '@/components/admin/reportControl'
 
 Vue.use(Router)
 
@@ -195,17 +199,44 @@ export default new Router({
       path: '/adminLogin',
       name: 'adminLogin',
       component: adminLogin
-      // meta: {
-      //   requireAuth: true
-      // }
     },
     {
       path: '/adminHome',
       name: 'adminHome',
-      component: adminHome
-      // meta: {
-      //   requireAuth: true
-      // }
+      component: adminHome,
+      meta: {
+        requireAuth2: true
+      },
+      children: [
+        {
+          path: '/adminHome',
+          component: showUser,
+          meta: {
+            requireAuth2: true
+          }
+        },
+        {
+          path: '/adminHome/addUser',
+          component: addUser,
+          meta: {
+            requireAuth2: true
+          }
+        },
+        {
+          path: '/adminHome/searchControl',
+          component: searchControl,
+          meta: {
+            requireAuth2: true
+          }
+        },
+        {
+          path: '/adminHome/reportControl',
+          component: reportControl,
+          meta: {
+            requireAuth2: true
+          }
+        }
+      ]
     }
   ],
   scrollBehavior (to, from, savedPosition) {
