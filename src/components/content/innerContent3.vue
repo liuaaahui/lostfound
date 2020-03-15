@@ -6,7 +6,7 @@
         <div><h1><span v-if="aPet.finish === '已完成'">【{{aPet.finish}}】</span>{{aPet.title}}</h1></div>
         <div class="subhead">栏目：寻宠启事 发布时间：{{aPet.time}}</div>
         <el-divider content-position="left"><div class="formTitle">信息详情</div></el-divider>
-        <div class="buttomSolid"><img src="../../assets/phone.svg" alt="phone" class="iconimg" />联系电话：{{aPet.phonenumber}}</div>
+        <div class="buttomSolid"><img src="../../assets/phone.svg" alt="phone" class="iconimg" />联系电话：<span v-if="trueStatus">{{aPet.phonenumber}}</span><span class="warningMess" v-else>【对不起，您无权查看电话信息】</span></div>
         <div class="buttomSolid"><img src="../../assets/kind.svg" alt="kind" class="iconimg" />物品种类：{{aPet.kindOrSex}}</div>
         <div class="buttomSolid"><img src="../../assets/spot.svg" alt="spot" class="iconimg" />丢失地点：{{aPet.spot}}{{aPet.definiteSpot}}</div>
         <div class="buttomSolid"><img src="../../assets/name.svg" alt="name" class="iconimg" />联系人员：{{aPet.contact}}</div>
@@ -30,7 +30,9 @@ export default {
   },
   data () {
     return {
-      aPet: []
+      aPet: [],
+      status: this.$store.state.userinfo.status,
+      trueStatus: ''
     }
   },
   methods: {
@@ -46,6 +48,13 @@ export default {
   },
   mounted () {
     this.getinnerContent()
+  },
+  created () {
+    if (this.status === '0') {
+      this.trueStatus = false
+    } else {
+      this.trueStatus = true
+    }
   }
 }
 </script>
@@ -103,5 +112,8 @@ h1{
 .iconimg{
     position: relative;
     top: 6px;
+}
+.warningMess{
+  color: red;
 }
 </style>

@@ -6,7 +6,7 @@
         <div><h1><span v-if="aPerson.finish === '已完成'">【{{aPerson.finish}}】</span>{{aPerson.title}}</h1></div>
         <div class="subhead">栏目：寻人启事 发布时间：{{aPerson.time}}</div>
         <el-divider content-position="left"><div class="formTitle">信息详情</div></el-divider>
-        <div class="buttomSolid"><img src="../../assets/phone.svg" alt="phone" class="iconimg" />联系电话：{{aPerson.phonenumber}}</div>
+        <div class="buttomSolid"><img src="../../assets/phone.svg" alt="phone" class="iconimg" />联系电话：<span v-if="trueStatus">{{aPerson.phonenumber}}</span><span class="warningMess" v-else>【对不起，您无权查看电话信息】</span></div>
         <div class="buttomSolid"><img src="../../assets/kind.svg" alt="kind" class="iconimg" />性别：{{aPerson.kindOrSex}}</div>
         <div class="buttomSolid"><img src="../../assets/spot.svg" alt="spot" class="iconimg" />走失地点：{{aPerson.spot}}{{aPerson.definiteSpot}}</div>
         <div class="buttomSolid"><img src="../../assets/name.svg" alt="name" class="iconimg" />联系人员：{{aPerson.contact}}</div>
@@ -30,7 +30,9 @@ export default {
   },
   data () {
     return {
-      aPerson: []
+      aPerson: [],
+      status: this.$store.state.userinfo.status,
+      trueStatus: ''
     }
   },
   methods: {
@@ -46,6 +48,13 @@ export default {
   },
   mounted () {
     this.getinnerContent()
+  },
+  created () {
+    if (this.status === '0') {
+      this.trueStatus = false
+    } else {
+      this.trueStatus = true
+    }
   }
 }
 </script>
@@ -103,5 +112,8 @@ h1{
 .iconimg{
     position: relative;
     top: 6px;
+}
+.warningMess{
+  color: red;
 }
 </style>

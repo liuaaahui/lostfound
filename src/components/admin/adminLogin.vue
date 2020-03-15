@@ -64,7 +64,7 @@ export default {
               })
               _this.$store.commit('SAVE_AUSERINFO', res.data[0])
               _this.$store.commit('CHECK_ALOGIN', '2')
-              this.$router.replace('/adminHome')
+              this.$router.replace('/adminHome').catch(data => { })
               this.$router.go(0)
             }
           })
@@ -75,10 +75,10 @@ export default {
       })
     },
     home () {
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
     },
     regist () {
-      this.$router.push('/regist')
+      this.$router.push('/regist').catch(data => { })
     }
   }
 }

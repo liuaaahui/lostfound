@@ -6,6 +6,7 @@
         <el-table-column  prop="username"  label="姓名(手机号)"  min-width="150px"  ></el-table-column>
         <el-table-column  prop="nickname"  label="昵称"  min-width="150px"  ></el-table-column>
         <el-table-column  prop="password"  label="密码"  min-width="150px"></el-table-column>
+        <el-table-column  prop="status"  label="有无查看权限"  min-width="150px"></el-table-column>
         <el-table-column fixed="right" label="操作" min-width="150px">
           <template slot-scope="scope">
             <el-button @click="deleterow(scope.row)" type="text" size="small">删除</el-button>

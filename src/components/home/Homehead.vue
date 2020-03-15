@@ -34,36 +34,37 @@ export default {
   },
   methods: {
     home () {
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
     },
     allSearch () {
-      this.$router.replace('/allSearch')
+      this.$router.replace('/allSearch').catch(data => { })
     },
     allMoney () {
-      this.$router.replace('/allMoney')
+      this.$router.replace('/allMoney').catch(data => { })
     },
     allPet () {
-      this.$router.replace('/allPet')
+      this.$router.replace('/allPet').catch(data => { })
     },
     allPerson () {
-      this.$router.replace('/allPerson')
+      this.$router.replace('/allPerson').catch(data => { })
     },
     resist () {
-      this.$router.replace('/resist')
+      this.$router.replace('/resist').catch(data => { })
     },
     allMessage () {
-      this.$router.replace('/allMessage')
+      this.$router.replace('/allMessage').catch(data => { })
     },
     relate () {
-      this.$router.replace('/relate')
+      this.$router.replace('/relate').catch(data => { })
     },
     login () {
-      this.$router.replace('/login')
+      this.$router.replace('/login').catch(data => { })
     },
     exit () {
       localStorage.clear()
       this.$store.commit('CHECK_LOGIN', '0')
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
+      this.$router.go(0)
     }
   },
   created () {

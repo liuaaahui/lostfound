@@ -20,19 +20,19 @@
 export default {
   methods: {
     adminLogin () {
-      this.$router.replace('/adminLogin')
+      this.$router.replace('/adminLogin').catch(data => { })
     },
     home () {
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
     },
     message () {
-      this.$router.replace('/message')
+      this.$router.replace('/message').catch(data => { })
     },
     member () {
-      this.$router.replace('/member')
+      this.$router.replace('/member').catch(data => { })
     },
     report () {
-      this.$router.replace('/report')
+      this.$router.replace('/report').catch(data => { })
     }
   }
 }

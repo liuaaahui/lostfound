@@ -50,7 +50,7 @@ export default {
     Aloginout () {
       localStorage.clear()
       this.$store.commit('CHECK_ALOGIN', '0')
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
       this.$router.go(0)
     }
   }

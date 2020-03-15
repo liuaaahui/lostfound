@@ -11,12 +11,12 @@
 export default {
   methods: {
     home () {
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
     },
     exit () {
       localStorage.clear()
       this.$store.commit('CHECK_LOGIN', '0')
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
     }
   }
 }

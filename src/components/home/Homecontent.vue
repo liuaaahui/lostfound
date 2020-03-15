@@ -91,28 +91,28 @@ export default {
   },
   methods: {
     search () {
-      this.$router.push('/search')
+      this.$router.push('/search').catch(data => { })
     },
     money () {
-      this.$router.push('/money')
+      this.$router.push('/money').catch(data => { })
     },
     pet () {
-      this.$router.push('/pet')
+      this.$router.push('/pet').catch(data => { })
     },
     person () {
-      this.$router.push('/person')
+      this.$router.push('/person').catch(data => { })
     },
     toSearch () {
-      this.$router.push('/allSearch')
+      this.$router.push('/allSearch').catch(data => { })
     },
     toMoney () {
-      this.$router.push('/allMoney')
+      this.$router.push('/allMoney').catch(data => { })
     },
     toPet () {
-      this.$router.push('/allPet')
+      this.$router.push('/allPet').catch(data => { })
     },
     toPerson () {
-      this.$router.push('/allPerson')
+      this.$router.push('/allPerson').catch(data => { })
     },
     getsomeSearch () {
       this.axios.post('/api/search/getSearchbyFirstKind').then(res => {

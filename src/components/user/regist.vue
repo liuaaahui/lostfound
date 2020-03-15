@@ -97,10 +97,10 @@ export default {
       })
     },
     home () {
-      this.$router.replace('/')
+      this.$router.replace('/').catch(data => { })
     },
     login () {
-      this.$router.push('/login')
+      this.$router.push('/login').catch(data => { })
     }
   }
 }

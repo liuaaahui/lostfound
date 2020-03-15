@@ -6,7 +6,6 @@
         <el-table-column prop="phonenumber" label="举报手机" min-width="200px"></el-table-column>
         <el-table-column prop="informer" label="举报人" min-width="170px"></el-table-column>
         <el-table-column prop="time" label="举报时间" min-width="150px"></el-table-column>
-        <el-table-column prop="state" label="状态" min-width="150px"></el-table-column>
         <el-table-column fixed="right" label="操作" min-width="80px">
           <template slot-scope="scope">
             <el-button @click="finish(scope.row)" type="text" size="small">完成</el-button>
@@ -39,15 +38,30 @@ export default {
       console.log(row)
       this.axios.get('/api/report/updatebyID', {
         params: {
-          id: row.Id
+          id: row.id
         }
       }).then(res => {
         if (res.data === 1) {
-          this.$message({
-            type: 'success',
-            showClose: true,
-            duration: 3000,
-            message: '更新成功!'
+          this.axios.get('/api/user/updatebyID', {
+            params: {
+              username: row.phonenumber
+            }
+          }).then(res => {
+            if (res.data === 1) {
+              this.$message({
+                type: 'success',
+                showClose: true,
+                duration: 3000,
+                message: '更新成功!'
+              })
+            } else {
+              this.$message({
+                type: 'error',
+                showClose: true,
+                duration: 60000,
+                message: '没有找到此用户!'
+              })
+            }
           })
         } else {
           this.$message({
@@ -58,14 +72,14 @@ export default {
           })
         }
         this.axios.post('/api/report/getAllReport').then((res) => {
-          this.allSearch = res.data
+          this.allReport = res.data
         })
       })
     },
     deleterow (row) {
       this.axios.get('/api/report/deletebyID', {
         params: {
-          id: row.Id
+          id: row.id
         }
       }).then(res => {
         if (res.data === 1) {
@@ -84,7 +98,7 @@ export default {
           })
         }
         this.axios.post('/api/report/getAllReport').then((res) => {
-          this.allSearch = res.data
+          this.allReport = res.data
         })
       })
     }

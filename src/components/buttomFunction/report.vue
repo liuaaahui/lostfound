@@ -29,6 +29,7 @@ export default {
       ruleForm: {
         phone: ''
       },
+      gettime: '',
       rules: {
         phone: [
           { required: true, message: '请输入要举报的手机号码', trigger: 'blur' }
@@ -41,9 +42,17 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           let _this = this
+          let yy = new Date().getFullYear()
+          let mm = new Date().getMonth() + 1
+          let dd = new Date().getDate()
+          let hh = new Date().getHours()
+          let mf = new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()
+          let ss = new Date().getSeconds() < 10 ? '0' + new Date().getSeconds() : new Date().getSeconds()
+          _this.gettime = yy + '-' + mm + '-' + dd + ' ' + hh + ':' + mf + ':' + ss
           this.axios.post('/api/report/addReport', {
             phonenumber: _this.ruleForm.phone,
-            informer: this.$store.state.userinfo.username
+            informer: this.$store.state.userinfo.username,
+            time: _this.gettime
           }).then(res => {
             if (res.data === 1) {
               _this.$message({

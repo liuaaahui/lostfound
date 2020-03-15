@@ -72,14 +72,14 @@ export default {
                 type: 'error',
                 showClose: true,
                 duration: 3000,
-                message: '该手机号已经被注册!'
+                message: '该手机号已经被添加!'
               })
             } else {
               _this.$message({
                 type: 'success',
                 showClose: true,
                 duration: 3000,
-                message: '注册成功!'
+                message: '添加成功!'
               })
             }
             this.$refs.ruleForm.resetFields()
